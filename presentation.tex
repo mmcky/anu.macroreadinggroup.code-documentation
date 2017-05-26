@@ -1,0 +1,220 @@
+%Presentation for Python Documentationa
+\documentclass{beamer}
+\usetheme{metropolis}           % Use metropolis theme
+
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{csquotes}
+
+\title{Documentation for Research Coding Projects}
+\date{\today}
+\author{Matthew McKay}
+\institute{QuantEcon - Research School of Economics, ANU, Australia}
+
+\begin{document}
+\maketitle
+
+\section{Python}
+
+\begin{frame}{Table of Contents}
+\begin{itemize}
+    \item 'Good' Code Style (PEP 8)
+    \item Docstrings (PEP 257)
+    \item Jupyter and Introspection
+    \item Documentation Standards
+        \begin{enumerate}
+            \item PEP 257
+            \item numpydoc
+            \item googledoc
+        \end{enumerate}
+    \item Sphinx Compilation System
+    \item QuantEcon Project Documentation (Example)
+    \item Resources and Links
+\end{itemize}    
+\end{frame}
+
+\begin{frame}{'Good' Code Style (PEP 8)}
+
+Emphasis on Readability
+
+This is good for \textbf{others} and good for \textbf{future self}
+
+Python \href{https://www.python.org/dev/peps/pep-0008/}{PEP 8}
+
+\begin{enumerate}
+\item provides a set of rules and a standard for writing code
+\item widely adopted by the Python Community
+\item emphasis is on readability of code
+\end{enumerate}
+
+Many editors assist with easily conforming to these types of rules such as auto-indentation
+
+\end{frame}
+
+%START SECTION
+
+\begin{frame}{\href{https://www.python.org/dev/peps/pep-0008/\#code-lay-out}{Code Layout}}
+
+Summary
+
+\begin{enumerate}
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#indentation}{Indentation}
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#tabs-or-spaces}{Tabs or Spaces}
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#maximum-line-length}{Maximum Line Length}
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#should-a-line-break-before-or-after-a-binary-operator}{Should a line break before or after a binary operator?}
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#blank-lines}{Blank Lines}
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#source-file-encoding}{Source File Encoding}
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#imports}{Importing}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{\href{https://www.python.org/dev/peps/pep-0008/\#naming-conventions}{Naming Conventions}}
+
+Summary
+
+\begin{enumerate}
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#class-names}{Class Names} are CapCase
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#function-names}{Function Names} are lowercase with words separated by an underscore
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#function-and-method-arguments}{Function and Method Arguments}
+    \item \href{https://www.python.org/dev/peps/pep-0008/\#constants}{Constants} are all CAPS
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{\href{https://www.python.org/dev/peps/pep-0008/\#comments}{Comments}}
+
+Summary
+
+\begin{enumerate}
+\item \href{https://www.python.org/dev/peps/pep-0008/\#block-comments}{Block Comments}
+\item \href{https://www.python.org/dev/peps/pep-0008/\#inline-comments}{Inline Comments}
+\item \href{https://www.python.org/dev/peps/pep-0008/\#documentation-strings}{Documentation Strings}
+\end{enumerate}
+
+\end{frame}
+
+%END
+
+%START SECTION
+
+\begin{frame}{Docstrings and PEP 257}
+
+A docstring is a string literal that occurs as the first statement in a module, function, class, 
+or method definition. Such a docstring becomes the \mintinline{python}{__doc__} special attribute of that object.
+
+  For consistency:
+
+  \begin{enumerate}
+    \item always use """triple double quotes""" around docstrings \textbf{(Most Common)}
+    \item Use r"""raw triple double quotes""" if you use any backslashes in your docstrings 
+    \item Use u"""Unicode triple-quoted strings""" for unicode docstrings
+  \end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]{Docstring Example: One-line}
+
+  One-line type docstrings
+
+  \begin{minted}{python}
+  def add(a, b):
+      """add two numbers together"""
+      return a + b
+  \end{minted}
+
+the docstring is attached to the add function as the doc attribute \mintinline{python}{add.__doc__}
+
+\end{frame}
+
+
+
+\begin{frame}{Docstring Example: Multi-line}
+
+    \begin{minted}{python}
+    def add(a, b, show=True):
+      """
+      add two numbers together
+
+      Keyword arguments:
+      show -- boolean, show the resulting value (default=True)
+      """
+      result = a + b 
+      if show: print(result)
+      return result
+    \end{minted}
+
+\end{frame}
+
+
+\begin{frame}{Class Docstrings}
+
+\end{frame}
+
+%END
+
+\begin{frame}{\href{http://jupyter.org/}{Jupyter} and Introspection}
+
+Jupyter offers a very useful ability to query objects for docstrings for immediate access to object docstrings
+
+\end{frame}
+
+%Documentation Standards
+
+\begin{frame}{PEP 257}
+
+The initial standard for writing docstrings in Projects
+
+\begin{enumerate}
+\item \href{https://www.python.org/dev/peps/pep-0257/\#one-line-docstrings}{One Line Docstrings}
+\item \href{https://www.python.org/dev/peps/pep-0257/\#multi-line-docstrings}{Multi Line Docstrings}
+\item \href{https://www.python.org/dev/peps/pep-0257/\#handling-docstring-indentation}{Handling Docstring Indentation}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Numpy/Scipy Style}
+
+Focus is on a consistent layout that can produce a well-formatted reference guide
+
+Uses a subset of re-structured text markup for formatting while maintaining readability in text editors
+
+If using sphinx need to use \href{https://github.com/numpy/numpydoc}{numpydoc extension} to parse the docstrings correctly.
+
+\end{frame}
+
+\begin{frame}{Google Style}
+
+\end{frame}
+
+%END Documentation Standards
+
+\begin{frame}{\href{http://www.sphinx-doc.org/en/stable/}{Sphinx} and Compilation System}
+
+A benefit of using a standard for documentation is nice integration with build / compilation systems such as \href{http://www.sphinx-doc.org/en/stable/}{Sphinx}
+
+You can easily document projects using \href{http://www.sphinx-doc.org/en/stable/ext/autodoc.html}{autodoc}
+
+\end{frame}
+
+\begin{frame}{QuantEcon Project Documentation (Example)}
+
+QuantEcon.py documentation can be found: \url{http://quanteconpy.readthedocs.io/en/latest/}
+
+\end{frame}
+
+\begin{frame}{Resources}
+\begin{enumerate}
+\item \href{https://www.python.org/dev/peps/pep-0008/}{Python - PEP8}
+\item \href{https://www.python.org/dev/peps/pep-0257/}{Python - Docstring Conventions}
+\item \href{https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt}{NumpyDoc how-to Guide}
+\item \href{http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html}{Google Style Python Docstrings}
+\item \href{http://www.sphinx-doc.org/en/stable/}{Sphinx}
+\item \href{http://jupyter.org/}{Jupyter}
+\end{enumerate}
+\end{frame}
+
+\section{Julia}
+
+\end{document}
