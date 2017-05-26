@@ -130,20 +130,21 @@ the docstring is attached to the add function as the doc attribute \mintinline{p
 
 
 
-\begin{frame}{Docstring Example: Multi-line}
+\begin{frame}[fragile]{Docstring Example: Multi-line}
 
-    \begin{minted}{python}
-    def add(a, b, show=True):
-      """
-      add two numbers together
+  \begin{minted}{python}
+  def add(a, b, show=True):
+    """
+    add two numbers together
 
-      Keyword arguments:
-      show -- boolean, show the resulting value (default=True)
-      """
-      result = a + b 
-      if show: print(result)
-      return result
-    \end{minted}
+    Keyword arguments:
+    show -- boolean, show the resulting value (default=True)
+    """
+    result = a + b 
+    if show: 
+        print(result)
+    return result
+  \end{minted}
 
 \end{frame}
 
