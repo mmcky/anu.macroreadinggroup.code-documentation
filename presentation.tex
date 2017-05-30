@@ -4,6 +4,8 @@
 
 \usepackage{url}
 \usepackage{hyperref}
+\definecolor{links}{HTML}{7c2e43}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
 \usepackage{minted}
 \usepackage{csquotes}
 
@@ -114,55 +116,6 @@ or method definition. Such a docstring becomes the \mintinline{python}{__doc__} 
 
 \end{frame}
 
-\begin{frame}[fragile]{Docstring Example: One-line}
-
-  One-line type docstrings
-
-  \begin{minted}{python}
-  def add(a, b):
-      """add two numbers together"""
-      return a + b
-  \end{minted}
-
-the docstring is attached to the add function as the doc attribute \mintinline{python}{add.__doc__}
-
-\end{frame}
-
-
-
-\begin{frame}[fragile]{Docstring Example: Multi-line}
-
-  \begin{minted}{python}
-  def add(a, b, show=True):
-    """
-    add two numbers together
-
-    Keyword arguments:
-    show -- boolean, show the resulting value (default=True)
-    """
-    result = a + b 
-    if show: 
-        print(result)
-    return result
-  \end{minted}
-
-\end{frame}
-
-
-\begin{frame}{Class Docstrings}
-
-\end{frame}
-
-%END
-
-\begin{frame}{\href{http://jupyter.org/}{Jupyter} and Introspection}
-
-Jupyter offers a very useful ability to query objects for docstrings for immediate access to object docstrings
-
-\end{frame}
-
-%Documentation Standards
-
 \begin{frame}{PEP 257}
 
 The initial standard for writing docstrings in Projects
@@ -175,33 +128,304 @@ The initial standard for writing docstrings in Projects
 
 \end{frame}
 
-\begin{frame}{Numpy/Scipy Style}
+\begin{frame}[fragile]{Docstring Example: One-line}
 
-Focus is on a consistent layout that can produce a well-formatted reference guide
+  One-line type docstrings
 
-Uses a subset of re-structured text markup for formatting while maintaining readability in text editors
+  \begin{minted}[fontsize=\small]{python}
+  def add(a, b):
+      """add two numbers together"""
+      return a + b
+  \end{minted}
 
-If using sphinx need to use \href{https://github.com/numpy/numpydoc}{numpydoc extension} to parse the docstrings correctly.
-
-\end{frame}
-
-\begin{frame}{Google Style}
-
-\end{frame}
-
-%END Documentation Standards
-
-\begin{frame}{\href{http://www.sphinx-doc.org/en/stable/}{Sphinx} and Compilation System}
-
-A benefit of using a standard for documentation is nice integration with build / compilation systems such as \href{http://www.sphinx-doc.org/en/stable/}{Sphinx}
-
-You can easily document projects using \href{http://www.sphinx-doc.org/en/stable/ext/autodoc.html}{autodoc}
+the docstring is attached to the add function as the doc attribute \mintinline{python}{add.__doc__}
 
 \end{frame}
 
-\begin{frame}{QuantEcon Project Documentation (Example)}
+\begin{frame}[fragile]{Docstring Example: Multi-line}
+
+  \begin{minted}[fontsize=\small]{python}
+  def add(a, b, show=True):
+    """add two numbers together
+
+    Keyword arguments:
+    show -- boolean, show the resulting value (default=True)
+    """
+    result = a + b 
+    if show: 
+        print("Result = {}".format(result))
+    return result
+  \end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Class Docstrings}
+
+  \begin{minted}[fontsize=\small]{python}
+  class TestAdd(object):
+    """This is a class docstring"""
+    
+    def __init__(self, a, b, show=True):
+        """
+        add two numbers together and store the result
+    
+        Keyword arguments:
+        show -- boolean, show the resulting value (default=True)
+
+        .. note:: this is the __init__ docstring
+        """
+        self.result = a + b
+  \end{minted}
+
+  for documenting \mintinline{python}{__init__} method you typically pick a convention to use class or method docstring
+
+\end{frame}
+
+%END
+
+\begin{frame}{\href{http://jupyter.org/}{Jupyter} and Introspection}
+
+Jupyter
+
+\begin{enumerate}
+  \item as an environment for documenting research, and 
+  \item Jupyter as a tool for introspection
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Jupyter as a documentation tool ...}
+
+Jupyter itself can be useful for documenting research projects as it provides modal type cells:
+
+\begin{enumerate}
+  \item prose (with LaTeX math markup support)
+  \item programming
+  \item data, visualization and plotting
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]{Useful feature of Jupyter ...}
+
+Jupyter (via IPython) has a number of useful query features for objects
+
+\begin{minted}[fontsize=\small]{python}
+import pandas as pd 
+
+df = pd.DataFrame([1,2,3,4,5])
+
+df.<tab>            #Provides access to object methods
+df.sort(<tab>)      #Provides method signature
+df.sort(<tab><tab>) #Provides full docstring
+df.sort?            #Provides docstring in new window
+df.sort??           #Provides docstring and full set of code for method
+\end{minted}
+
+\end{frame}
+
+%Documentation Standards
+
+\begin{frame}{Why use Documentation Standards?}
+
+\textbf{Main:} A lot of thought has gone into design and readability
+
+\textbf{Others:}
+
+\begin{enumerate}
+  \item Easier to work across projects in a community
+  \item Integrates with software that can build useful user-guides, notes, or manuals
+  \item use markup (via RST) while retaining readability
+  \item can be tailored to the needs of a specific community
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{\href{https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt\#docstring-standard}{Numpy/Scipy Style Docstrings}}  
+
+\textbf{Focus:} layout that can produce a well formatted reference guide
+
+Uses a subset of re-structured text (RST) markup:
+
+\begin{enumerate}
+  \item maintain readability in text editors
+  \item allows for more advanced formatting to be inferred from simple markup
+  \item allows the use of LaTeX for math
+  \item bibtex citations
+  \item use of sphinx directives to add warnings, notes etc.
+\end{enumerate}
+
+A reStructured text primer can be found \href{http://www.sphinx-doc.org/en/stable/rest.html}{here}
+
+\end{frame}
+
+\begin{frame}[fragile]{Numpy Style Docstrings: Functions}
+
+\begin{minted}[fontsize=\tiny]{python}
+  def function(param, keyword_param=True):
+    """(#1) a short description of the function
+
+    (#2) deprecation warnings
+
+    (#3) extended summary
+
+    (#4) Parameters
+    ---------------
+    param : type
+            description of param 1
+    keyword_param : boolean, optional(default=True)
+                    description of keyword parameter
+    
+    (#5) Returns and Yields (explanation of returned values)
+    Returns
+    -------
+    result
+
+    (#6) Raises (optional section dealing with exceptions)
+
+    (#7) See Also
+
+    (#8) Notes and References
+
+    (#9) Examples (can also be doctests)
+    """
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]{Numpy Style Docstring: Typical Example}
+
+\begin{minted}[fontsize=\small]{python}
+def func(arg1, arg2=True):
+    """Summary line.
+
+    Extended description of function.
+
+    Parameters
+    ----------
+    arg1 : int
+        Description of arg1
+    arg2 : bool, optional(default=True)
+        Description of arg2
+
+    Returns
+    -------
+    bool
+        Description of return value
+
+    """
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]{Numpy Style Docstrings: Classes}
+
+\textbf{A) Class Docstring}
+
+Use same sections as function (except Returns as \textbf{not} applicable)
+
+The \mintinline{python}{__init__} constructor should be documented in the class docstring
+
+An \textbf{Attributes} section can be located below Parameters to describe non-method attributes
+
+A \textbf{Methods} section can be located below Attributes to document public methods
+
+\textbf{B) Method Docstrings}
+
+Documented in similar fashion to functions, but always exclude \mintinline{python}{self} from the list of parameters
+
+\end{frame}
+
+\begin{frame}{NumPy Style Docstring Guide and Example}
+
+\textbf{NumPy Guide}
+
+\url{https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt\#sections}
+
+\textbf{Extended explanatory example (Napoleon sphinx extension)} with modules, functions, and classes  
+
+\url{http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html\#example-numpy}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Google Style Docstrings: Typical Example}
+
+\textbf{Main difference} is use of indentation to separate sections rather than underlines
+
+\begin{minted}[fontsize=\small]{python}
+def func(arg1, arg2=True):
+    """Summary line.
+
+    Extended description of function.
+
+    Args:
+        arg1 (int): Description of arg1
+        arg2 (bool, default=True): Description of arg2
+
+    Returns:
+        bool: Description of return value
+
+    """
+\end{minted}
+\end{frame}
+
+
+\begin{frame}{Google Style Docstrings}
+
+\textbf{Extended explanatory example (Napoleon sphinx extension)} with module, functions and classes
+
+\url{http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html}
+
+\end{frame}
+
+
+\begin{frame}{Comparison: Numpy vs Google Style}
+
+\begin{quote}
+NumPy style tends to require more vertical space, whereas Google style tends to use more horizontal space. 
+\end{quote}
+
+\begin{quote}
+Google style tends to be easier to read for short and simple docstrings, whereas NumPy style tends be easier to read for long and in-depth docstrings.
+\end{quote}
+
+\begin{flushright}
+\url{http://www.sphinx-doc.org/en/stable/ext/napoleon.html\#google-vs-numpy}
+\end{flushright}
+
+\end{frame}
+
+%END
+
+\begin{frame}{\href{http://www.sphinx-doc.org/en/stable/}{Sphinx} and Compilation Systems}
+
+A benefit of using a standard for documentation is nice integration with build systems such as \href{http://www.sphinx-doc.org/en/stable/}{Sphinx}
+
+You can document projects using \href{http://www.sphinx-doc.org/en/stable/ext/autodoc.html}{autodoc} which builds your documentation from internal docstrings
+
+This is mainly useful for \textbf{larger} projects or code libraries
+
+\end{frame}
+
+\begin{frame}{Example: QuantEcon Project Documentation}
 
 QuantEcon.py documentation can be found: \url{http://quanteconpy.readthedocs.io/en/latest/}
+
+\end{frame}
+
+\begin{frame}[fragile]{Creating a Sphinx Project}
+
+\textbf{sphinx-apidoc}
+
+To auto-generate sphinx rst files for a project \mintinline{bash}{sphinx-apidoc -o docs .} 
+
+\textbf{sphinx-quickstart}
+
+To start a sphinx documentation project it is best to use \mintineline{bash}{sphinx-quickstart}
+
+\href{http://www.sphinx-doc.org/en/stable/tutorial.html}{Sphinx getting started tutorial}
 
 \end{frame}
 
@@ -212,10 +436,51 @@ QuantEcon.py documentation can be found: \url{http://quanteconpy.readthedocs.io/
 \item \href{https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt}{NumpyDoc how-to Guide}
 \item \href{http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html}{Google Style Python Docstrings}
 \item \href{http://www.sphinx-doc.org/en/stable/}{Sphinx}
+\begin{itemize}
+  \item \href{http://sphinxcontrib-napoleon.readthedocs.io/en/latest/sphinxcontrib.napoleon.html}{sphinxcontrib.napoleon package}
+  \item \href{https://github.com/numpy/numpydoc}{Numpydoc}
+  \item \href{http://www.sphinx-doc.org/en/stable/ext/autodoc.html}{autodoc}
+\end{itemize}
 \item \href{http://jupyter.org/}{Jupyter}
 \end{enumerate}
 \end{frame}
 
 \section{Julia}
+
+\begin{frame}{Julia Documentation}
+
+Current state of the art: \href{https://github.com/JuliaDocs/Documenter.jl}{Documenter.jl}
+
+Features:
+\begin{enumerate}
+  \item supports markdown
+  \item support for LaTeX math
+  \item Doctests, cross-references for docs, linter etc.
+\end{enumerate}
+
+documentation standards still to solidify
+
+\end{frame}
+
+\begin{frame}[fragile]{Julia Example}
+
+  \begin{minted}[fontsize=\small]{julia}
+    """
+    add two numbers together
+
+    # Keyword arguments:
+    * `show:boolean`: show the resulting value (default=true)   
+    """
+    function add(a, b; show=true)
+       result = a + b
+       if show == true
+         println("Result = ", result)
+       end
+       return result
+     end
+
+  \end{minted}
+
+\end{frame}
 
 \end{document}

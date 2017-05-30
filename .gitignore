@@ -9,3 +9,6 @@ _minted*/
 *.vrb
 *.minted*
 *.pdf
+.ipynb_checkpoints/
+/sphinx-autodoc-example/docs/
+__pycache__
